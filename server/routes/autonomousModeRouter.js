@@ -35,7 +35,6 @@ async function runAutonomousMode(agent, config, userId, interval = 10) {
     console.log(`Autonomous mode for ${userId} stopped.`);
 }
 
-// Start Autonomous Mode
 router.post("/autonomous-mode/:userId", async (req, res) => {
     const { userId } = req.params;
     const { interval = 10 } = req.body;
@@ -55,7 +54,6 @@ router.post("/autonomous-mode/:userId", async (req, res) => {
     }
 });
 
-// Stop Autonomous Mode
 router.post("/autonomous-mode/:userId/stop", (req, res) => {
     const { userId } = req.params;
 

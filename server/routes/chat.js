@@ -6,7 +6,8 @@ const router = express.Router();
 
 router.get("/chat", async (req, res) => {
     try {
-        const { agent, config } = await initializeAgent();
+        const {userId} = req.body;
+        const { agent, config } = await initializeAgent(userId);
         const userInput = req.query.prompt;
         if (!userInput) return res.status(400).json({ error: "Missing prompt" });
 
