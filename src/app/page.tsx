@@ -23,7 +23,7 @@ export default function Home() {
       <h1 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
         HorizonAI
       </h1>
-
+      
       {/* New section for website description */}
       <section className="text-center mb-12 max-w-2xl">
         <p className="text-xl text-gray-300 mb-4">
