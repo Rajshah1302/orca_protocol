@@ -32,6 +32,7 @@ export default function Home() {
           </p>
         </section>
 
+
         <h2 className="text-3xl font-semibold mb-8 text-yellow-300">
           Choose Your Risk Level
         </h2>
