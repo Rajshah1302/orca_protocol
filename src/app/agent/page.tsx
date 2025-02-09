@@ -3,6 +3,7 @@ import { agents } from "@/lib/mock-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, ArrowUp, Cpu } from "lucide-react";
+import { Header } from "@/components/header";
 
 export default function AgentPage() {
   const agent = agents.find((a) => a.id === '1');
@@ -10,6 +11,7 @@ export default function AgentPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <Header></Header>
       <main className="container mx-auto px-4 py-16">
         <div className="mb-8">
           <div className="mb-2 flex items-center gap-2">
