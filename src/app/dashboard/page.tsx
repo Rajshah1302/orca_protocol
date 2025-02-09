@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { walletInfo } from "@/lib/mock-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,16 +22,54 @@ import {
   Network,
   PieChart,
 } from "lucide-react";
+import { Header } from "@/components/header";
+
+interface WalletInfo {
+  address: string;
+  balance: string;
+  network: string;
+}
 
 export default function Dashboard() {
   const [showDeposit, setShowDeposit] = useState(false);
+  const [walletInfoo, setWalletInfo] = useState<WalletInfo>({
+    address: "Loading...",
+    balance: "0.5",
+    network: "Loading...",
+  });
 
   const copyAddress = () => {
     navigator.clipboard.writeText(walletInfo.address);
   };
 
+  const fetchWalletInfo = async () => {
+    try {
+      const response = await fetch("/api/wallet");
+      const data = await response.json();
+      setWalletInfo(data);
+    } catch (err) {
+      setError("Error fetching wallet info");
+      console.error("Wallet fetch error:", err);
+    }
+  };
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:8000/ws");
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === "agent_activity") {
+        // setStatus(data.data.message);
+        fetchWalletInfo();
+      }
+    };
+
+    return () => ws.close();
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white">
+      <Header></Header>
       <main className="container mx-auto px-4 py-16">
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-3xl font-bold text-white">Dashboard</h1>
@@ -88,11 +126,9 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">
-                {walletInfo.balance} ETH
+                {walletInfoo.balance} ETH
               </div>
-              <p className="text-xs text-gray-400">
-                ≈ ${(walletInfo.balance * 2500).toFixed(2)}
-              </p>
+              <p className="text-xs text-gray-400">{walletInfo.address}</p>
             </CardContent>
           </Card>
 
@@ -105,7 +141,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">
-                {walletInfo.network}
+                {walletInfoo.network}
               </div>
               <p className="text-xs text-gray-400">Connected & Synced</p>
             </CardContent>
@@ -241,3 +277,7 @@ export default function Dashboard() {
     </div>
   );
 }
+function setError(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

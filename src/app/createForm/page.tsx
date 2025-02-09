@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { Header } from "@/components/header";
 
 export default function TradingForm() {
   const [amountPerBuy, setAmountPerBuy] = useState<string>("");

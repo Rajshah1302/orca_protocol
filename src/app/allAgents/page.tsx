@@ -9,10 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight, Cpu } from "lucide-react";
+import { Header } from "@/components/header";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white">
+      <Header></Header>
       <main className="container mx-auto px-4 py-16">
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-yellow-400">
